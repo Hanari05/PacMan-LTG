@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport", content="width=device-width, initial-scale=1.0">
-        <title>Pac-Man</title>
-        <link rel="stylesheet" href="pacman.css">
-        <script src="pacman.js"></script>
-    </head>
-    <body>
-        <canvas id="board"></canvas>
-    </body>
-</html>
+<!doctype html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pac-Man · Giai đoạn 1</title><link rel="stylesheet" href="pacman.css"><script src="map.js" defer></script><script src="pacman.js" defer></script></head>
+<body><main>
+<header><div><p class="eyebrow">ARCADE / LTG</p><h1>PAC<span>·</span>MAN</h1></div><button id="pause" disabled>Tạm dừng</button></header>
+<section class="hud" aria-label="Thông tin ván chơi"><div>ĐIỂM<strong id="score">0</strong></div><div>MẠNG<strong id="lives">3</strong></div><div>VÒNG<strong id="level">1</strong></div></section>
+<div class="stage"><canvas id="board" width="608" height="672" aria-label="Mê cung Pac-Man; dùng WASD hoặc phím mũi tên"></canvas><section id="overlay" role="dialog" aria-modal="true" aria-labelledby="title"><div class="card"><p class="eyebrow">PAC-MAN / CLASSIC</p><h2 id="title">Đang tải…</h2><p id="message" aria-live="polite">Chuẩn bị mê cung</p><button id="primary" disabled>Bắt đầu</button><button id="restart" hidden>Chơi lại từ đầu</button></div></section></div>
+<p id="status" class="status">Ăn chấm. Né ma. Chinh phục mê cung.</p>
+<p class="controls"><kbd>W A S D</kbd> / <kbd>↑ ↓ ← →</kbd> Di chuyển · <kbd>Esc</kbd> Tạm dừng</p>
+<details><summary>Cách chơi & điểm thưởng</summary><p>Ăn hết chấm và 4 viên năng lượng để hoàn thành vòng. Chấm nhỏ: 10 điểm; viên năng lượng: 50 điểm và 8 giây ăn ma. Ăn ma liên tiếp: 200 / 400 / 800 / 1600 điểm. Cherry: 500 điểm, xuất hiện một lần khi ăn 40% số chấm, tồn tại 10 giây tại điểm xuất phát. Va vào ma thường mất 1 mạng; hết 3 mạng sẽ kết thúc. Sau hồi sinh có 2 giây bảo vệ. Mở hướng dẫn sẽ tạm dừng ván chơi; bấm Tiếp tục để chơi lại.</p></details>
+<footer>Giai đoạn 1 · Một mê cung, luyện phản xạ mỗi vòng</footer></main></body></html>
