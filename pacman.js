@@ -22,16 +22,16 @@ const KEYS = {
     KeyD: 'R',
 };
 const SPRITES = {
-    U: 'assets/elements/pacmanUp.png',
-    D: 'assets/elements/pacmanDown.png',
-    L: 'assets/elements/pacmanLeft.png',
-    R: 'assets/elements/pacmanRight.png',
-    b: 'assets/elements/blueGhost.png',
-    o: 'assets/elements/orangeGhost.png',
-    p: 'assets/elements/pinkGhost.png',
-    r: 'assets/elements/redGhost.png',
-    scared: 'assets/elements/scaredGhost.png',
-    cherry: 'assets/elements/cherry.png',
+    U: 'assets/pacmanUp.png',
+    D: 'assets/pacmanDown.png',
+    L: 'assets/pacmanLeft.png',
+    R: 'assets/pacmanRight.png',
+    b: 'assets/blueGhost.png',
+    o: 'assets/orangeGhost.png',
+    p: 'assets/pinkGhost.png',
+    r: 'assets/redGhost.png',
+    scared: 'assets/scaredGhost.png',
+    cherry: 'assets/cherry.png',
 };
 const images = {};
 let state = 'loading',
@@ -441,7 +441,11 @@ function messageFor(s) {
             'Ăn hết chấm, tránh những bóng ma.\nViên năng lượng giúp đảo ngược cuộc săn.\nChọn map rồi bấm Bắt đầu.',
             'Bắt đầu',
         ],
-        paused: ['Tạm dừng', 'Mê cung và mọi bộ đếm đang dừng.', 'Tiếp tục'],
+        paused: [
+            'Tạm dừng',
+            'Mê cung và mọi bộ đếm đang dừng.\nĐổi map sẽ chơi lại vòng này trên map mới (giữ điểm và mạng).',
+            'Tiếp tục',
+        ],
         respawning: ['Thử lại nào!', 'Chuẩn bị hồi sinh…', ''],
         complete: [
             'Hoàn thành vòng ' + level,
@@ -481,7 +485,8 @@ function syncUI() {
     put(ui.primary, 'disabled', ['loading', 'error', 'respawning'].includes(state));
     put(ui.primary, 'hidden', state === 'respawning' || state === 'error');
     put(ui.restart, 'hidden', !['paused', 'complete'].includes(state));
-    put(ui.mapsel, 'hidden', !['ready', 'gameover'].includes(state));
+    put(ui.mapsel, 'hidden', !['ready', 'gameover', 'paused'].includes(state));
+    put(ui.mapsel, 'value', String(mapIndex));
     const key = state + '|' + score + '|' + level + '|' + mapIndex;
     if (key !== uiKey) {
         // văn bản overlay chỉ dựng lại khi có thay đổi
@@ -737,13 +742,15 @@ board.addEventListener(
     },
     { passive: true },
 );
-ui.mapsel.addEventListener('change', () => {
-    // xem trước giao diện map ngay ở màn hình bắt đầu
-    if (!['ready', 'gameover'].includes(state)) return;
-    mapIndex = Math.min(Math.max(+ui.mapsel.value || 0, 0), MAPS.length - 1);
+// Đổi map ở màn hình bắt đầu, kết thúc hoặc trong khung tạm dừng. Khi đang tạm dừng: chơi lại vòng hiện tại
+// trên map mới, giữ nguyên điểm, mạng và số vòng.
+function chooseMap(index) {
+    if (!['ready', 'gameover', 'paused'].includes(state)) return;
+    mapIndex = Math.min(Math.max(index || 0, 0), MAPS.length - 1);
     loadMap();
     syncUI();
-});
+}
+ui.mapsel.addEventListener('change', () => chooseMap(+ui.mapsel.value));
 ui.dpad.addEventListener('pointerdown', e => {
     const d = e.target.dataset && e.target.dataset.dir;
     if (d) {

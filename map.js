@@ -32,21 +32,22 @@ const classic = pad([
     'X*        ',
     'XXXXXXXXXX',
 ]);
+// Map 2 "Giao lộ": các ô gần đường hầm là hành lang thật (không còn khối O trống), nhiều ngã tư; nửa dưới lật từ nửa trên.
 const topB = [
     'XXXXXXXXXX',
     'X*   X    ',
     'X XX X XX ',
     'X XX      ',
     'X    XXX X',
-    'XXXX X    ',
-    'OOOX X XXX',
-    'OOOX     r',
-    'OOOX X XX-',
+    'X XX X    ',
+    'X XX X XXX',
+    'X    X   r',
+    'X XX X XX-',
     '       XGG',
-    'OOOX X XXX',
-    'OOOX      ',
+    'X XX X XXX',
+    'X    X    ',
 ];
-// Map 3 "Hành lang": viết tay hoàn toàn (không lật trên/dưới), chuồng ma đặt cao, có HAI đường hầm (hàng 3 và hàng 13).
+// Map 3 "Hành lang": viết tay hoàn toàn (không lật trên/dưới), chuồng ma đặt cao, có HAI đường hầm (hàng 4 và hàng 14).
 const garden = pad([
     'XXXXXXXXXX',
     'X*   X    ',
@@ -112,7 +113,7 @@ const THEMES = {
     },
 };
 const MAPS = [
-    { name: 'Cổ điển', music: 'assets/music/co_dien.wav', theme: THEMES.water, rows: classic },
-    { name: 'Giao lộ', music: 'assets/music/giao_lo.wav', theme: THEMES.road, rows: vertical(topB) },
-    { name: 'Hành lang', music: 'assets/music/hanh_lang.wav', theme: THEMES.garden, rows: garden },
+    { name: 'Cổ điển', music: 'assets/music/co_dien.mp3', theme: THEMES.water, rows: classic },
+    { name: 'Giao lộ', music: 'assets/music/giao_lo.mp3', theme: THEMES.road, rows: vertical(topB) },
+    { name: 'Hành lang', music: 'assets/music/hanh_lang.mp3', theme: THEMES.garden, rows: garden },
 ];

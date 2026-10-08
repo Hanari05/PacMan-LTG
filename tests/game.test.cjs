@@ -355,3 +355,22 @@ test('every map has an existing music file', () => {
         assert.ok(fs.existsSync(path.join(__dirname, '..', 'assets', 'music', f + '.mp3')));
     assert.equal(game()('MAPS.every(m=>/^assets\\/music\\/.+\\.mp3$/.test(m.music))'), true);
 });
+
+test('pause menu: switching map restarts the level on the new map and keeps score, lives and level', () => {
+    const g = game();
+    audios.length = 0;
+    g('startGame(); addScore(120); lives = 2; level = 2; togglePause(); chooseMap(1)');
+    assert.equal(g('state'), 'paused');
+    assert.equal(g('mapIndex'), 1);
+    assert.equal(g('score'), 120);
+    assert.equal(g('lives'), 2);
+    assert.equal(g('level'), 2);
+    assert.equal(g('foods.size'), g('totalFood'));
+    g('chooseMap(2); chooseMap(99)');
+    assert.equal(g('mapIndex'), 2);
+    g('togglePause(); syncMusic()');
+    assert.equal(g('state'), 'playing');
+    assert.match(audios[audios.length - 1].src, /hanh_lang\.mp3$/);
+    g('chooseMap(0)');
+    assert.equal(g('mapIndex'), 2); // đang chơi thì không đổi map
+});

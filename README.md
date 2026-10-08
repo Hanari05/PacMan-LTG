@@ -64,7 +64,7 @@ Nút mũi tên cảm ứng chỉ hiện trên thiết bị có màn hình cảm 
 - **Giữa:** mê cung, tự co theo chiều cao màn hình nên không phải cuộn trang.
 - **Cột phải:** thanh trạng thái (đếm ngược ăn ma, cherry, bảo vệ…), phím điều khiển, hướng dẫn chi tiết.
 - Trên điện thoại hoặc cửa sổ hẹp, các phần xếp dọc, mê cung vẫn vừa màn hình.
-- Ở màn hình bắt đầu có ô chọn map. Chọn đến đâu thấy giao diện của map đó ngay.
+- Ô chọn map có ở màn hình bắt đầu, màn hình kết thúc và cả khung **Tạm dừng**. Chọn đến đâu thấy giao diện của map đó ngay. Đổi map khi đang tạm dừng sẽ chơi lại vòng hiện tại trên map mới, giữ nguyên điểm, số mạng và số vòng; nhạc nền cũng đổi theo.
 
 ---
 
@@ -104,7 +104,7 @@ Ma quyết định hướng đi tại **mỗi ngã rẽ** (không quay đầu tr
 | Ma | Cách săn |
 |---|---|
 | 🔴 Đỏ | Đuổi thẳng vào ô Pac-Man đang đứng |
-| 🎀 Hồng | Chặn đầu: nhắm vào ô cách Pac-Man 4 ô theo hướng đang đi |
+| 🩷 Hồng | Chặn đầu: nhắm vào ô cách Pac-Man 4 ô theo hướng đang đi |
 | 🔵 Xanh | Kẹp gọng: nhắm điểm đối xứng của ma đỏ qua vị trí phía trước Pac-Man |
 | 🟠 Cam | Đuổi khi ở xa, nhưng khi tới gần (dưới 8 ô) thì bỏ chạy về góc của mình |
 
@@ -143,9 +143,9 @@ Mỗi map có bố cục, giao diện và nhạc nền riêng. Bạn chọn map 
 |---|---|---|---|
 | Màu chủ đạo | 🔵 Xanh nước | 🟡 Vàng | 🟢 Xanh lá |
 | Họa tiết tường | Sóng nước | Vạch chéo (như vạch báo hiệu đường) | Lá cây |
-| Bố cục | Map gốc của bản mẫu, thêm chuồng ma và đường hầm | Đối xứng trên/dưới, nhiều ô vuông nhỏ, đường thông thoáng | Thiết kế riêng, **không đối xứng trên/dưới**; chuồng ma đặt cao gần đỉnh, Pac-Man xuất phát ở dưới |
+| Bố cục | Map gốc của bản mẫu, thêm chuồng ma và đường hầm | Đối xứng trên/dưới, nhiều ngã tư và ô vuông nhỏ, đường thông thoáng, không còn khoảng trống hai bên | Thiết kế riêng, **không đối xứng trên/dưới**; chuồng ma đặt cao gần đỉnh, Pac-Man xuất phát ở dưới |
 | Đường hầm | 1 (hàng giữa) | 1 (hàng giữa) | **2** (hàng 4 và hàng 14), ma và Pac-Man có thể vòng qua lại giữa hai nửa mê cung |
-| Số chấm | 183 | 173 | 206 |
+| Số chấm | 183 | 199 | 206 |
 | Nhạc nền | `co_dien.mp3` | `giao_lo.mp3` | `hanh_lang.mp3` |
 
 Tường được vẽ bằng code với viền phát sáng, họa tiết liền mạch giữa các khối. Giao diện cả trang (viền khung, nút, điểm số, màu nền) cũng đổi theo màu của map.
@@ -166,7 +166,7 @@ Tường được vẽ bằng code với viền phát sáng, họa tiết liền
 | Trạng thái game | Chỉ có `gameOver` | Máy trạng thái (tải, sẵn sàng, chơi, tạm dừng, hồi sinh, qua vòng, kết thúc, lỗi) |
 | Giao diện | Một canvas đen, điểm vẽ trong canvas | HUD bằng HTML, overlay thông báo, bố cục 3 cột, theme theo map |
 | Âm thanh | Không | Hiệu ứng tổng hợp + nhạc nền theo map |
-| Kiểm thử | Không | 23 bài test tự động |
+| Kiểm thử | Không | 24 bài test tự động |
 
 ### Những gợi ý "bài tập về nhà" của bản gốc đã được thực hiện
 
@@ -216,7 +216,7 @@ PacMan-LTG/
 │       ├── giao_lo.mp3
 │       └── hanh_lang.mp3
 ├── tests/
-│   └── game.test.cjs     # 23 bài kiểm thử tự động
+│   └── game.test.cjs     # 24 bài kiểm thử tự động
 ├── TESTING.md            # Ghi chú kiểm thử và checklist chơi thử
 ├── .prettierrc           # Cấu hình định dạng code
 └── README.md
@@ -272,7 +272,7 @@ Một hàng có cả hai đầu là khoảng trắng được hiểu là **hàng
 
 ## 8. Kiểm thử
 
-Bộ test chạy bằng `node --test`, mô phỏng trình duyệt bằng DOM giả trong `node:vm`, gồm **23 bài** bao phủ:
+Bộ test chạy bằng `node --test`, mô phỏng trình duyệt bằng DOM giả trong `node:vm`, gồm **24 bài** bao phủ:
 
 - Mọi chấm và 4 viên năng lượng đều đi tới được (kiểm tra cả 3 map).
 - Đường hầm, chuồng ma (ma ra theo thứ tự, không vào lại), AI đuổi/phân tán, mục tiêu riêng từng ma.
