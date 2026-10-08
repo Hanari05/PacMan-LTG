@@ -2,7 +2,7 @@
 
 Game Pac-Man chạy trên trình duyệt, viết bằng **JavaScript thuần + HTML5 Canvas** (không dùng thư viện hay framework nào). Bản này phát triển từ code mẫu trong video hướng dẫn của Kenny Yip, được mở rộng thành một game hoàn chỉnh hơn: 3 map với giao diện và nhạc riêng, ma có trí tuệ nhân tạo, đường hầm, chuồng ma, độ khó tăng dần, âm thanh, kỷ lục và điều khiển cảm ứng.
 
-- Code gốc tham khảo: [Kenny Yip Coding – Pac-Man tutorial](https://www.youtube.com/watch?v=WxeTMsaSOaA) · [Demo bản gốc](https://imkennyyip.github.io/pacman/)
+- Code gốc tham khảo: [Kenny Yip Coding – Pac-Man tutorial](https://www.youtube.com/watch?v=WxeTMsaSOaA)
 - Nhạc nền trong map thuộc: *Geometry Dash Music*
 - Phát triển tiếp bởi: **Hanari05**
 
