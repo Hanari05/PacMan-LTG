@@ -46,20 +46,30 @@ const topB = [
     'OOOX X XXX',
     'OOOX      ',
 ];
-const topC = [
+// Map 3 "Hành lang": viết tay hoàn toàn (không lật trên/dưới), chuồng ma đặt cao, có HAI đường hầm (hàng 3 và hàng 13).
+const garden = pad([
     'XXXXXXXXXX',
-    'X*    X   ',
-    'X XXX X XX',
-    'X     X   ',
-    'X   X     ',
-    'OOOXXXXX  ',
-    'OOOX      ',
-    'OOOX XXX r',
-    'OOOX X XX-',
-    '       XGG',
-    'OOOX X XXX',
-    'OOOX      ',
-];
+    'X*   X    ',
+    'X XX X XXX',
+    '          ',
+    'XXXX X    ',
+    'X    X   r',
+    'X XX X XX-',
+    'X XX X XGG',
+    'X    X XXX',
+    'X XXXX    ',
+    'X        X',
+    'X XX XXX  ',
+    'XXXX X    ',
+    '          ',
+    'X XX X XXX',
+    'X  X     P',
+    'XX X X XXX',
+    'X    X   X',
+    'X XXXXXX X',
+    'X*        ',
+    'XXXXXXXXXX',
+]);
 const vertical = top => pad([...top, ...flipBottom(top)].map((r, i) => (i === 15 ? r.slice(0, 9) + 'P' : r)));
 
 // Theme: bg nền | fill màu khối tường | edge viền phát sáng | pat màu họa tiết | dot/power màu chấm | door cửa chuồng | accent/page màu giao diện
@@ -104,5 +114,5 @@ const THEMES = {
 const MAPS = [
     { name: 'Cổ điển', music: 'assets/music/co_dien.wav', theme: THEMES.water, rows: classic },
     { name: 'Giao lộ', music: 'assets/music/giao_lo.wav', theme: THEMES.road, rows: vertical(topB) },
-    { name: 'Hành lang', music: 'assets/music/hanh_lang.wav', theme: THEMES.garden, rows: vertical(topC) },
+    { name: 'Hành lang', music: 'assets/music/hanh_lang.wav', theme: THEMES.garden, rows: garden },
 ];

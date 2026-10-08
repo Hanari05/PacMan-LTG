@@ -230,12 +230,19 @@ test('tunnel: Pac-Man wraps across the board edge on every map', () => {
     for (let m = 0; m < 3; m++) {
         const g = game();
         g(
-            `mapIndex=${m};loadMap();ghosts=[];protectionLeft=0;pacman=actor(1,9,'pacman');pacman.dir='L';pacman.next='L';moveActor(pacman,32)`,
+            `mapIndex=${m};loadMap();ghosts=[];protectionLeft=0;pacman=actor(1,tunnel.indexOf(true),'pacman');pacman.dir='L';pacman.next='L';moveActor(pacman,32)`,
         );
         assert.equal(g('pacman.x'), 0);
         g('moveActor(pacman,40)');
         assert.ok(g('pacman.x') > 500, 'map ' + m + ' x=' + g('pacman.x'));
     }
+});
+test('map 3 is hand-made: not vertically symmetric, has two tunnels, no dead zones', () => {
+    const g = game();
+    g('mapIndex=2;loadMap()');
+    assert.equal(g('tunnel.filter(Boolean).length'), 2);
+    assert.equal(g('tileMap.some(r => r.includes("O"))'), false);
+    assert.equal(g('tileMap.every((r, i) => r === tileMap[H - 1 - i])'), false);
 });
 test('ghost house: ghosts leave in order and never re-enter; Pac-Man cannot enter', () => {
     for (let m = 0; m < 3; m++) {
@@ -243,7 +250,7 @@ test('ghost house: ghosts leave in order and never re-enter; Pac-Man cannot ente
         g(`mapIndex=${m};loadMap();pacman.x=pacman.startX;protectionLeft=1e9;pacman.dir=null`);
         assert.equal(g(`(()=>{const [dc,dr]=exitTile;return walkable(dc,dr+1,false)})()`), false);
         g('for(let i=0;i<60*8;i++){pacman.x=pacman.startX;pacman.y=pacman.startY;tick(STEP)}');
-        assert.equal(g('ghosts.filter(x=>x.kind!=="o").every(x=>!inHouse(x)||x.y!==x.startY)'), true);
+        assert.equal(g('ghosts.filter(x=>x.kind!==\"o\").every(x=>!inHouse(x)||x.y!==x.startY)'), true);
         g('for(let i=0;i<60*20;i++){pacman.x=pacman.startX;pacman.y=pacman.startY;tick(STEP)}');
         assert.equal(
             g('ghosts.every(x=>!HOUSE.includes(cell(Math.round(x.x/TILE),Math.round(x.y/TILE))))'),

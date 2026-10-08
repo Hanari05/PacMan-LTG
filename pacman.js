@@ -445,8 +445,8 @@ function messageFor(s) {
         respawning: ['Thử lại nào!', 'Chuẩn bị hồi sinh…', ''],
         complete: [
             'Hoàn thành vòng ' + level,
-            'Điểm cao nhất: ' +
-                best +
+            'Điểm hiện tại: ' +
+                score +
                 '\nVòng sau: map "' +
                 MAPS[(mapIndex + 1) % MAPS.length].name +
                 '", ma nhanh hơn, viên năng lượng ngắn hơn.',
@@ -454,7 +454,7 @@ function messageFor(s) {
         ],
         gameover: [
             'Kết thúc ván',
-            'Điểm kết thúc: ' +
+            'Điểm của em: ' +
                 score +
                 (score >= best && score > 0 ? ' (kỷ lục mới!)' : '') +
                 '\nSẵn sàng cho một lượt mới?',

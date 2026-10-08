@@ -2,7 +2,7 @@
 
 ## Đã thực hiện
 
-- `node --test tests/game.test.cjs`: 22/22 bài kiểm tra đạt.
+- `node --test tests/game.test.cjs`: 23/23 bài kiểm tra đạt.
 - `node --check pacman.js` và `node --check map.js`: đạt.
 - 11 đường dẫn ảnh dùng trong game đều tồn tại.
 - Kiểm tra diff không có lỗi whitespace.
