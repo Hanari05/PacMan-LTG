@@ -113,7 +113,7 @@ const THEMES = {
     },
 };
 const MAPS = [
-    { name: 'Cổ điển', music: 'assets/music/co_dien.mp3', theme: THEMES.water, rows: classic },
-    { name: 'Giao lộ', music: 'assets/music/giao_lo.mp3', theme: THEMES.road, rows: vertical(topB) },
-    { name: 'Hành lang', music: 'assets/music/hanh_lang.mp3', theme: THEMES.garden, rows: garden },
+    { name: 'Cổ điển', music: 'assets/music/co_dien.wav', theme: THEMES.water, rows: classic },
+    { name: 'Giao lộ', music: 'assets/music/giao_lo.wav', theme: THEMES.road, rows: vertical(topB) },
+    { name: 'Hành lang', music: 'assets/music/hanh_lang.wav', theme: THEMES.garden, rows: garden },
 ];
