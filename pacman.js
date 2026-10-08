@@ -22,16 +22,16 @@ const KEYS = {
     KeyD: 'R',
 };
 const SPRITES = {
-    U: 'assets/pacmanUp.png',
-    D: 'assets/pacmanDown.png',
-    L: 'assets/pacmanLeft.png',
-    R: 'assets/pacmanRight.png',
-    b: 'assets/blueGhost.png',
-    o: 'assets/orangeGhost.png',
-    p: 'assets/pinkGhost.png',
-    r: 'assets/redGhost.png',
-    scared: 'assets/scaredGhost.png',
-    cherry: 'assets/cherry.png',
+    U: 'assets/elements/pacmanUp.png',
+    D: 'assets/elements/pacmanDown.png',
+    L: 'assets/elements/pacmanLeft.png',
+    R: 'assets/elements/pacmanRight.png',
+    b: 'assets/elements/blueGhost.png',
+    o: 'assets/elements/orangeGhost.png',
+    p: 'assets/elements/pinkGhost.png',
+    r: 'assets/elements/redGhost.png',
+    scared: 'assets/elements/scaredGhost.png',
+    cherry: 'assets/elements/cherry.png',
 };
 const images = {};
 let state = 'loading',
