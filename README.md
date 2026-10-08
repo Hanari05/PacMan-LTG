@@ -103,7 +103,7 @@ Ma quyết định hướng đi tại **mỗi ngã rẽ** (không quay đầu tr
 | Ma | Cách săn |
 |---|---|
 | 🔴 Đỏ | Đuổi thẳng vào ô Pac-Man đang đứng |
-| 🩷 Hồng | Chặn đầu: nhắm vào ô cách Pac-Man 4 ô theo hướng đang đi |
+| 🎀 Hồng | Chặn đầu: nhắm vào ô cách Pac-Man 4 ô theo hướng đang đi |
 | 🔵 Xanh | Kẹp gọng: nhắm điểm đối xứng của ma đỏ qua vị trí phía trước Pac-Man |
 | 🟠 Cam | Đuổi khi ở xa, nhưng khi tới gần (dưới 8 ô) thì bỏ chạy về góc của mình |
 
