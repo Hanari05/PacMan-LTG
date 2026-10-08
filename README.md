@@ -320,4 +320,6 @@ Ba file MP3 nặng khoảng 18 MB (320 kbps). Nếu đưa game lên web, nên n�
 ffmpeg -i co_dien.mp3 -b:a 128k co_dien_small.mp3
 ```
 
-# Game chỉ phục vụ mục đích học tập, không liên quan đến bản quyền sản phẩm gốc hay giá trị thương mại.
+---
+
+## Game chỉ phục vụ mục đích học tập, không liên quan đến bản quyền sản phẩm gốc hay giá trị thương mại.
