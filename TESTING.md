@@ -1,13 +1,15 @@
-# Kiểm tra bản Giai đoạn 1
+# Kiểm tra bản Giai đoạn 2
 
 ## Đã thực hiện
 
-- `node --test tests/game.test.cjs`: 13/13 bài kiểm tra đạt.
+- `node --test tests/game.test.cjs`: 19/19 bài kiểm tra đạt.
 - `node --check pacman.js` và `node --check map.js`: đạt.
 - 11 đường dẫn ảnh dùng trong game đều tồn tại.
 - Kiểm tra diff không có lỗi whitespace.
 
 Các bài kiểm tra chạy logic JavaScript trong môi trường giả lập DOM tối thiểu. Bao gồm các handler bàn phím, hướng dẫn, chuyển tab; một vòng lặp duy nhất khi Restart; tốc độ mô phỏng ở 30 và 144 Hz; khả năng tiếp cận toàn bộ chấm; rẽ có lưu hướng; chặn biên/tường; Pause; ăn ma; hồi sinh; cherry; chuyển vòng và Game Over.
+
+Giai đoạn 2 bổ sung test cho: cả 3 map (đạt tới mọi chấm, đường hầm, chuồng ma), AI đuổi/phân tán, độ khó theo vòng, phím được lưu khi hồi sinh, kỷ lục, và bot tự chơi 3 phút mô phỏng trên mỗi map.
 
 ## Giới hạn
 
@@ -26,3 +28,7 @@ Chưa kiểm thử hình ảnh/giao diện và thao tác thực trên trình duy
 - Ăn hết chấm: xuất hiện Hoàn thành vòng; sang vòng mới vẫn giữ điểm/mạng.
 - Mất đủ 3 mạng: Game Over. Phím di chuyển không tự restart; nút Chơi lại đặt lại toàn bộ ván.
 - Tạm dừng → Chơi lại từ đầu nhiều lần: tốc độ không tăng bất thường.
+- Đổi map ở màn hình bắt đầu; qua vòng sẽ xoay sang map kế tiếp.
+- Đi vào đường hầm hàng giữa: xuất hiện ở phía đối diện. Ma rời chuồng lần lượt (đỏ, hồng, xanh, cam).
+- Âm thanh: nút 🔊/🔇 hoạt động và nhớ lựa chọn. Kỷ lục giữ nguyên sau khi tải lại trang.
+- Trên điện thoại: vuốt trên mê cung hoặc dùng nút mũi tên.

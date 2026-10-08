@@ -12,7 +12,7 @@ function game() {
         if (!elements.has(id)) elements.set(id,{
             textContent:'',hidden:false,open:false,
             addEventListener(type,fn){events[id+':'+type]=fn;},
-            getContext(){return {clearRect(){},drawImage(){},beginPath(){},arc(){},fill(){},stroke(){}};}
+            getContext(){return {clearRect(){},drawImage(){},beginPath(){},arc(){},fill(){},stroke(){},fillRect(){}};}
         });
         return elements.get(id);
     };
@@ -26,9 +26,9 @@ function game() {
     run('startGame()'); return run;
 }
 test('all pellets and four power pellets are reachable',()=>{
-    const g=game();
+    for(let i=0;i<3;i++){const g=game();g(`mapIndex=${i};loadMap()`);
     assert.equal(g('[...foods.values()].filter(f=>f.power).length'),4);
-    assert.equal(g(`(() => {const seen=new Set(), q=[[9,15]]; while(q.length){const [c,r]=q.shift(),key=c+','+r;if(seen.has(key)||!walkable(c,r))continue;seen.add(key);for(const [dx,dy] of Object.values(DIR))q.push([c+dx,r+dy]);}return [...foods.keys()].every(k=>seen.has(k));})()`),true);
+    assert.equal(g(`(() => {const seen=new Set(), q=[pacTile()]; while(q.length){let [c,r]=q.shift();if(!walkable(c,r))continue;c=(c+W)%W;const key=c+','+r;if(seen.has(key))continue;seen.add(key);for(const [dx,dy] of Object.values(DIR))q.push([c+dx,r+dy]);}return [...foods.keys()].every(k=>seen.has(k));})()`),true);}
 });
 test('keyboard, help and hidden-tab events pause and resume through real handlers',()=>{
     const g=game();let prevented=false;
@@ -58,7 +58,7 @@ test('blocked early turn is buffered until next valid intersection',()=>{
 test('wall and outside cells cannot be entered; key request does not move player',()=>{
     const g=game();g("pacman=actor(1,1,'pacman');pacman.next='U';moveActor(pacman,100)");
     assert.equal(g('pacman.y'),32);
-    g("pacman=actor(1,9,'pacman');pacman.next='L';moveActor(pacman,100)");assert.equal(g('pacman.x'),32);
+    g("pacman=actor(1,3,'pacman');pacman.dir='L';pacman.next='L';moveActor(pacman,100)");assert.equal(g('pacman.x'),32);
 });
 test('pause freezes positions, effects, cherry and ghost return timers',()=>{
     const g=game();g("powerLeft=5;cherryLeft=7;ghosts[0].wait=2;pacman.next='L';togglePause()");
@@ -100,5 +100,38 @@ test('game over stays stopped and explicit restart resets all round state',()=>{
     g('primaryAction()');assert.equal(g('state'),'playing');assert.equal(g('lives'),3);assert.equal(g('score'),0);assert.equal(g('powerLeft'),0);assert.equal(g('cherrySpawned'),false);
 });
 test('random movement keeps ghosts on traversable corridors for 2 simulated minutes',()=>{
-    const g=game();assert.equal(g(`(() => {for(let i=0;i<7200;i++)for(const a of ghosts){moveActor(a,2);if(!walkable(Math.floor(a.x/TILE),Math.floor(a.y/TILE))||!walkable(Math.ceil(a.x/TILE),Math.ceil(a.y/TILE)))return false;}return true;})()`),true);
+    const g=game();assert.equal(g(`(() => {for(let i=0;i<7200;i++)for(const a of ghosts){moveActor(a,2);if(!walkable(Math.floor(a.x/TILE),Math.floor(a.y/TILE),true)||!walkable(Math.ceil(a.x/TILE),Math.ceil(a.y/TILE),true))return false;}return true;})()`),true);
+});
+
+const walk=(g,s)=>g(`(() => {const out=[];for(let i=0;i<${s};i++){tick(STEP);}return 1;})()`);
+test('tunnel: Pac-Man wraps across the board edge on every map',()=>{
+    for(let m=0;m<3;m++){const g=game();g(`mapIndex=${m};loadMap();ghosts=[];protectionLeft=0;pacman=actor(1,9,'pacman');pacman.dir='L';pacman.next='L';moveActor(pacman,32)`);
+        assert.equal(g('pacman.x'),0);g('moveActor(pacman,40)');assert.ok(g('pacman.x')>500,'map '+m+' x='+g('pacman.x'));}
+});
+test('ghost house: ghosts leave in order and never re-enter; Pac-Man cannot enter',()=>{
+    for(let m=0;m<3;m++){const g=game();g(`mapIndex=${m};loadMap();pacman.x=pacman.startX;protectionLeft=1e9;pacman.dir=null`);
+        assert.equal(g(`(()=>{const [dc,dr]=exitTile;return walkable(dc,dr+1,false)})()`),false);
+        g('for(let i=0;i<60*8;i++){pacman.x=pacman.startX;pacman.y=pacman.startY;tick(STEP)}');
+        assert.equal(g('ghosts.filter(x=>x.kind!=="o").every(x=>!inHouse(x)||x.y!==x.startY)'),true);
+        g('for(let i=0;i<60*20;i++){pacman.x=pacman.startX;pacman.y=pacman.startY;tick(STEP)}');
+        assert.equal(g('ghosts.every(x=>!HOUSE.includes(cell(Math.round(x.x/TILE),Math.round(x.y/TILE))))'),true,'map '+m);}
+});
+test('chase AI: targets differ per ghost and scatter uses corners',()=>{
+    const g=game();g("protectionLeft=1e9;pacman.x=9*TILE;pacman.y=15*TILE;pacman.dir='L';for(const x of ghosts){x.x=9*TILE;x.y=7*TILE}chasing=true");
+    assert.equal(g('JSON.stringify(ghostTarget(ghosts.find(x=>x.kind==="r")))'),'[9,15]');assert.equal(g('JSON.stringify(ghostTarget(ghosts.find(x=>x.kind==="p")))'),'[5,15]');
+    g('chasing=false');assert.equal(g('JSON.stringify(ghostTarget(ghosts.find(x=>x.kind==="o")))'),'[1,19]');
+});
+test('difficulty scales with level; maps rotate; fright time shrinks',()=>{
+    const g=game();const s1=g('ghostSpeed()'),p1=g('powerTime()');g("ghosts=[];foods=new Map([['9,15',{c:9,r:15,power:false}]]);cherrySpawned=true;tick(STEP);primaryAction()");
+    assert.equal(g('mapIndex'),1);assert.equal(g('level'),2);assert.ok(g('ghostSpeed()')>s1);assert.ok(g('powerTime()')<p1);
+});
+test('buffered key survives respawn; best score updates',()=>{
+    const g=game();g("protectionLeft=0;ghosts[0].x=pacman.x;ghosts[0].y=pacman.y;resolveGhosts()");
+    g("steer('L')");assert.equal(g('pacman.next'),'L');g('for(let i=0;i<91;i++)tick(STEP)');assert.equal(g('state'),'playing');assert.equal(g('pacman.next'),'L');
+    g('addScore(5)');assert.equal(g('best'),5);
+});
+test('autoplay bot: 3 simulated minutes on each map without invalid state',()=>{
+    for(let m=0;m<3;m++){const g=game();g(`mapIndex=${m};loadMap()`);
+        assert.equal(g(`(()=>{const keys=Object.keys(DIR);for(let i=0;i<60*180;i++){if(i%20===0)steer(keys[Math.floor(Math.random()*4)]);if(state==='respawning'||state==='playing')tick(STEP);else if(state==='gameover'||state==='complete'){primaryAction();}
+            for(const a of [pacman,...ghosts]){if(!isFinite(a.x)||!isFinite(a.y)||a.x<=-TILE||a.x>=W*TILE||!walkable(Math.floor(a.x/TILE),Math.floor(a.y/TILE),a.kind!=='pacman'))return false;}}return true;})()`),true,'map '+m);}
 });
