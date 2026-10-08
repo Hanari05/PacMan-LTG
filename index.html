@@ -1,11 +1,82 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pac-Man · Giai đoạn 2</title><link rel="stylesheet" href="pacman.css"><script src="map.js" defer></script><script src="pacman.js" defer></script></head>
-<body><main>
-<header><div><p class="eyebrow">ARCADE / LTG</p><h1>PAC<span>·</span>MAN</h1></div><div class="tools"><button id="mute" aria-label="Bật/tắt âm thanh">🔊</button><button id="pause" disabled>Tạm dừng</button></div></header>
-<section class="hud" aria-label="Thông tin ván chơi"><div>ĐIỂM<strong id="score">0</strong></div><div>KỶ LỤC<strong id="best">0</strong></div><div>MẠNG<strong id="lives">3</strong></div><div>VÒNG<strong id="level">1</strong></div></section>
-<div class="stage"><canvas id="board" width="608" height="672" aria-label="Mê cung Pac-Man; dùng WASD hoặc phím mũi tên"></canvas><section id="overlay" role="dialog" aria-modal="true" aria-labelledby="title"><div class="card"><p class="eyebrow">PAC-MAN / CLASSIC</p><h2 id="title">Đang tải…</h2><p id="message" aria-live="polite">Chuẩn bị mê cung</p><select id="mapsel" aria-label="Chọn map"></select><button id="primary" disabled>Bắt đầu</button><button id="restart" hidden>Chơi lại từ đầu</button></div></section></div>
-<div id="dpad" aria-label="Điều khiển cảm ứng"><button data-dir="U" aria-label="Lên">▲</button><button data-dir="L" aria-label="Trái">◀</button><button data-dir="D" aria-label="Xuống">▼</button><button data-dir="R" aria-label="Phải">▶</button></div>
-<p id="status" class="status">Ăn chấm. Né ma. Chinh phục mê cung.</p>
-<p class="controls"><kbd>W A S D</kbd> / <kbd>↑ ↓ ← →</kbd> Di chuyển (hoặc vuốt trên mê cung) · <kbd>Esc</kbd> Tạm dừng</p>
-<details><summary>Cách chơi & điểm thưởng</summary><p>Ăn hết chấm và 4 viên năng lượng để hoàn thành vòng. Chấm nhỏ: 10 điểm; viên năng lượng: 50 điểm và ma sợ hãi (8 giây, ngắn dần theo vòng). Ăn ma liên tiếp: 200 / 400 / 800 / 1600. Cherry: 500 điểm, xuất hiện một lần khi ăn 40% chấm, tồn tại 10 giây tại điểm xuất phát.</p><p>Mỗi ma một cách săn: đỏ đuổi thẳng, hồng chặn đầu, xanh kẹp gọng, cam lúc đuổi lúc bỏ chạy; ma luân phiên giữa săn đuổi và về góc. Ma rời chuồng lần lượt. Hai đầu hàng giữa là đường hầm xuyên biên. Có 3 map, đổi map sau mỗi vòng; từ vòng 2 ma nhanh hơn. Mất 3 mạng là kết thúc; sau hồi sinh được bảo vệ 2 giây. Mở hướng dẫn sẽ tạm dừng ván chơi.</p></details>
-<footer>Giai đoạn 2 · Một mê cung, luyện phản xạ mỗi vòng</footer></main></body></html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Pac-Man · Update by Hana</title>
+        <link rel="stylesheet" href="pacman.css" />
+        <script src="map.js" defer></script>
+        <script src="pacman.js" defer></script>
+    </head>
+    <body>
+        <main>
+            <aside class="side left">
+                <header>
+                    <div>
+                        <p class="eyebrow">ARCADE / LTG</p>
+                        <h1>PAC<span>·</span>MAN</h1>
+                    </div>
+                    <div class="tools">
+                        <button id="music" title="Nhạc nền" aria-label="Bật/tắt nhạc nền">🎵</button
+                        ><button id="mute" title="Hiệu ứng âm thanh" aria-label="Bật/tắt âm thanh">🔊</button
+                        ><button id="pause" disabled>Tạm dừng</button>
+                    </div>
+                </header>
+                <section class="hud" aria-label="Thông tin ván chơi">
+                    <div>ĐIỂM<strong id="score">0</strong></div>
+                    <div>KỶ LỤC<strong id="best">0</strong></div>
+                    <div>MẠNG<strong id="lives">3</strong></div>
+                    <div>VÒNG<strong id="level">1</strong></div>
+                </section>
+            </aside>
+            <div class="center">
+                <div class="stage">
+                    <canvas
+                        id="board"
+                        width="608"
+                        height="672"
+                        aria-label="Mê cung Pac-Man; dùng WASD hoặc phím mũi tên"></canvas>
+                    <section id="overlay" role="dialog" aria-modal="true" aria-labelledby="title">
+                        <div class="card">
+                            <p class="eyebrow">PAC-MAN / CLASSIC</p>
+                            <h2 id="title">Đang tải…</h2>
+                            <p id="message" aria-live="polite">Chuẩn bị mê cung</p>
+                            <select id="mapsel" aria-label="Chọn map"></select
+                            ><button id="primary" disabled>Bắt đầu</button
+                            ><button id="restart" hidden>Chơi lại từ đầu</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <aside class="side right">
+                <div id="dpad" aria-label="Điều khiển cảm ứng">
+                    <button data-dir="U" aria-label="Lên">▲</button
+                    ><button data-dir="L" aria-label="Trái">◀</button
+                    ><button data-dir="D" aria-label="Xuống">▼</button
+                    ><button data-dir="R" aria-label="Phải">▶</button>
+                </div>
+                <p id="status" class="status">Ăn chấm. Né ma. Chinh phục mê cung.</p>
+                <p class="controls">
+                    <kbd>W A S D</kbd> / <kbd>↑ ↓ ← →</kbd> Di chuyển (hoặc vuốt trên mê cung) ·
+                    <kbd>Esc</kbd> Tạm dừng
+                </p>
+                <details>
+                    <summary>Cách chơi & điểm thưởng</summary>
+                    <p>
+                        Ăn hết chấm và 4 viên năng lượng để hoàn thành vòng. Chấm nhỏ: 10 điểm; viên năng
+                        lượng: 50 điểm và ma sợ hãi (8 giây, ngắn dần theo vòng). Ăn ma liên tiếp: 200 / 400 /
+                        800 / 1600. Cherry: 500 điểm, xuất hiện một lần khi ăn 40% chấm, tồn tại 10 giây tại
+                        điểm xuất phát.
+                    </p>
+                    <p>
+                        Mỗi ma một cách săn: đỏ đuổi thẳng, hồng chặn đầu, xanh kẹp gọng, cam lúc đuổi lúc bỏ
+                        chạy; ma luân phiên giữa săn đuổi và về góc. Ma rời chuồng lần lượt. Hai đầu hàng giữa
+                        là đường hầm xuyên biên. Có 3 map, đổi map sau mỗi vòng; từ vòng 2 ma nhanh hơn. Mất 3
+                        mạng là kết thúc; sau hồi sinh được bảo vệ 2 giây. Mở hướng dẫn sẽ tạm dừng ván chơi.
+                    </p>
+                </details>
+                <footer>Giai đoạn 2 · Ba mê cung, ma thông minh hơn mỗi vòng</footer>
+            </aside>
+        </main>
+    </body>
+</html>

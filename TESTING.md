@@ -2,7 +2,7 @@
 
 ## Đã thực hiện
 
-- `node --test tests/game.test.cjs`: 19/19 bài kiểm tra đạt.
+- `node --test tests/game.test.cjs`: 22/22 bài kiểm tra đạt.
 - `node --check pacman.js` và `node --check map.js`: đạt.
 - 11 đường dẫn ảnh dùng trong game đều tồn tại.
 - Kiểm tra diff không có lỗi whitespace.
@@ -32,3 +32,5 @@ Chưa kiểm thử hình ảnh/giao diện và thao tác thực trên trình duy
 - Đi vào đường hầm hàng giữa: xuất hiện ở phía đối diện. Ma rời chuồng lần lượt (đỏ, hồng, xanh, cam).
 - Âm thanh: nút 🔊/🔇 hoạt động và nhớ lựa chọn. Kỷ lục giữ nguyên sau khi tải lại trang.
 - Trên điện thoại: vuốt trên mê cung hoặc dùng nút mũi tên.
+- Nhạc nền: mỗi map một bài trong assets/music/ (lặp lại); nút 🎵 bật/tắt, tự dừng khi Pause, đổi bài khi sang map mới.
+- Định dạng code: Prettier theo .prettierrc (npx prettier --write .).
