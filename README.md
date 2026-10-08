@@ -3,6 +3,7 @@
 Game Pac-Man chạy trên trình duyệt, viết bằng **JavaScript thuần + HTML5 Canvas** (không dùng thư viện hay framework nào). Bản này phát triển từ code mẫu trong video hướng dẫn của Kenny Yip, được mở rộng thành một game hoàn chỉnh hơn: 3 map với giao diện và nhạc riêng, ma có trí tuệ nhân tạo, đường hầm, chuồng ma, độ khó tăng dần, âm thanh, kỷ lục và điều khiển cảm ứng.
 
 - Code gốc tham khảo: [Kenny Yip Coding – Pac-Man tutorial](https://www.youtube.com/watch?v=WxeTMsaSOaA) · [Demo bản gốc](https://imkennyyip.github.io/pacman/)
+- Nhạc nền trong map thuộc: *Geometry Dash Music*
 - Phát triển tiếp bởi: **Hanari05**
 
 ---
@@ -319,13 +320,4 @@ Ba file MP3 nặng khoảng 18 MB (320 kbps). Nếu đưa game lên web, nên n�
 ffmpeg -i co_dien.mp3 -b:a 128k co_dien_small.mp3
 ```
 
----
-
-## 10. Hạn chế đã biết
-
-- Chưa có kiểm thử tự động ngay trên trình duyệt thật (giao diện, âm thanh thật, cảm ứng chỉ được kiểm tra logic).
-- Độ cân bằng (tốc độ ma, độ dài pha đuổi, độ khó từng map) là giá trị ước lượng, cần chơi thử và chỉnh.
-- Ma bị ăn biến mất rồi hiện lại trong chuồng, chưa có hiệu ứng "mắt bay về chuồng" như bản Pac-Man gốc.
-- Chưa có bảng xếp hạng nhiều người chơi; kỷ lục chỉ lưu cục bộ trong trình duyệt.
-- Âm thanh hiệu ứng là âm tổng hợp đơn giản (sóng vuông), không phải âm thanh thu sẵn.
-- Phiên bản này là sản phẩm học tập, không liên quan tới bản quyền hay nhãn hiệu Pac-Man chính thức.
+#Game chỉ phục vụ mục đích học tập, không liên quan đến bản quyền sản phẩm gốc hay giá trị thương mại.
