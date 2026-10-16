@@ -38,7 +38,7 @@ Chạy bộ kiểm thử (cần Node 18 trở lên):
 ```
 node --test tests/game.test.cjs
 ```
-[Chơi ngay demo taị đây 👾](https://hanari05.github.io/PacMan-LTG/)
+[Chơi ngay demo taị đây 👾](https://hanari05.github.io/PacMan_LTG/)
 
 ---
 
